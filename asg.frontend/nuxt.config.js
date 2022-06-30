@@ -68,6 +68,22 @@ export default {
     },
   },
 
+  // Auth
+
+  auth: {
+    strategies: {
+      graphql: {
+        scheme: '~/schemes/graphqlScheme.js',
+      },
+    },
+    // redirect: {
+    //   login: '/login',
+    //   logout: '/login?logout=true',
+    //   callback: false,
+    //   home: '/dashboard',
+    // },
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     loaders: {
