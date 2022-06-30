@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "graphene_django",
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "graphql_auth",
+    "corsheaders",
     "django_quill",
 ]
 
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "server.urls"
@@ -152,6 +154,19 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
+GRAPHQL_AUTH = {
+    "LOGIN_ALLOWED_FIELDS": ["email"],  # use email field for login
+    # 'REGISTER_MUTATION_FIELDS': ['email', 'first_name'], # fields for register mutation
+    "USERNAME_FIELD": ["email"],
+    # the next option should solve your problems, tell 'django-filter' which fields to filter
+    # "USER_NODE_FILTER_FIELDS": {
+    #     "email": [
+    #         "exact",
+    #     ],
+    #     "is_active": ["exact"],
+    # },
+}
+
 GRAPHQL_JWT = {
     "JWT_ALLOW_ANY_CLASSES": [
         "graphql_auth.mutations.Register",
@@ -165,3 +180,5 @@ GRAPHQL_JWT = {
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 AUTH_USER_MODEL = "users.CustomUser"
+
+CORS_ORIGIN_ALLOW_ALL = True
